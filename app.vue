@@ -1,5 +1,7 @@
 <template>
-  <div>
-    <NuxtWelcome />
-  </div>
+  <UContainer>
+    <NuxtLoadingIndicator />
+    <NuxtErrorBoundary />
+    <NuxtPage />
+  </UContainer>
 </template>
