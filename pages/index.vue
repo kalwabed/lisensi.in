@@ -1,17 +1,17 @@
 <script setup lang="ts">
 useHead({
-  title: "Lisensi.in yaaa"
+  title: 'Lisensi.in yaaa',
 })
 
 const licenses = [
   {
     label: 'MIT',
-    value: 'mit'
+    value: 'mit',
   },
   {
     label: 'Apache',
-    value: 'apache'
-  }
+    value: 'apache',
+  },
 ]
 
 const licenseText = ref('')
@@ -22,32 +22,33 @@ const year = ref(new Date().getFullYear().toString())
 
 const { copy, copied } = useClipboard()
 
-const download = () => {
+function download() {
   const blob = new Blob([licenseText.value], { type: 'text/plain;charset=utf-8' })
   const url = URL.createObjectURL(blob)
   fileHref.value.href = url
-  fileHref.value.download = "LICENSE"
+  fileHref.value.download = 'LICENSE'
   fileHref.value.click()
 
   URL.revokeObjectURL(url)
-};
+}
 
 watch([license, name, year], () => {
-  if (license.value === 'mit') {
+  if (license.value === 'mit')
     licenseText.value = toMit(year.value, name.value)
-  } else {
+  else
     licenseText.value = 'haklooo'
-  }
 }, { immediate: true })
 </script>
 
 <template>
   <div class="flex flex-col w-full gap-4 mt-8">
-    <a ref="fileHref" class="hidden" href="#"></a>
+    <a ref="fileHref" class="hidden" href="#" />
     <div class="self-end flex items-center gap-2">
       <UTooltip text="Salin">
-        <UButton color="gray" variant="soft" @click="copy(licenseText)" :disabled="copied"
-          :icon="copied ? 'i-tabler-clipboard-check' : 'i-tabler-clipboard-copy'" />
+        <UButton
+          color="gray" variant="soft" :disabled="copied"
+          :icon="copied ? 'i-tabler-clipboard-check' : 'i-tabler-clipboard-copy'" @click="copy(licenseText)"
+        />
       </UTooltip>
       <UTooltip text="Unduh">
         <UButton icon="i-tabler-file-download" variant="soft" color="gray" @click="download()" />

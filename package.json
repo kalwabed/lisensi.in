@@ -1,13 +1,14 @@
 {
   "name": "nuxt-app",
-  "private": true,
   "type": "module",
+  "private": true,
   "scripts": {
     "build": "nuxt build",
     "dev": "nuxt dev",
     "generate": "nuxt generate",
     "preview": "nuxt preview",
-    "postinstall": "nuxt prepare"
+    "postinstall": "nuxt prepare && pnpm simple-git-hooks",
+    "lint": "eslint --cache --fix ."
   },
   "dependencies": {
     "nuxt": "^3.10.3",
@@ -15,8 +16,20 @@
     "vue-router": "^4.3.0"
   },
   "devDependencies": {
+    "@antfu/eslint-config": "^2.8.0",
     "@nuxt/ui": "^2.14.1",
     "@vueuse/core": "^10.9.0",
-    "@vueuse/nuxt": "^10.9.0"
+    "@vueuse/nuxt": "^10.9.0",
+    "eslint": "^8.57.0",
+    "eslint-plugin-format": "^0.1.0",
+    "lint-staged": "^15.2.2",
+    "nuxt-module-eslint-config": "^0.1.0",
+    "simple-git-hooks": "^2.10.0"
+  },
+  "simple-git-hooks": {
+    "pre-commit": "pnpm lint-staged"
+  },
+  "lint-staged": {
+    "*": "eslint --cache --fix ."
   }
 }
