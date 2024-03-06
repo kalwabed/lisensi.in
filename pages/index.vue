@@ -3,27 +3,11 @@ useHead({
   title: 'Lisensi.in yaaa',
 })
 
-const licenses = [
-  {
-    label: 'MIT',
-    name: 'The MIT License',
-    id: 'mit',
-    summary: 'Lisensi ini cocok untuk proyek perangkat lunak open source yang ingin didistribusikan secara luas dan digunakan oleh banyak orang.',
-    permissions: ['commercial', 'modification', 'distribution', 'private'],
-  },
-  {
-    name: 'Apache License, Version 2.0',
-    label: 'Apache-2.0',
-    id: 'apache',
-    summary: 'Lisensi Apache 2 permisif, memberikan hak luas untuk pengguna. Cocok untuk proyek open source yang ingin didistribusikan secara luas dan dikomersialkan.',
-    permissions: ['commercial', 'modification', 'distribution', 'private'],
-  },
-]
-
 const licenseText = ref('')
 const selectedLicense = ref(licenses[0])
 const name = ref('')
 const fileHref = ref()
+const isOpen = ref(false)
 const year = ref(new Date().getFullYear().toString())
 
 const { copy, copied } = useClipboard()
@@ -81,14 +65,11 @@ watch([selectedLicense, name, year], () => {
           {{ selectedLicense.summary }}
         </small>
         <div class="flex flex-col gap-2">
-          <div
-            v-for="permission of selectedLicense.permissions" :key="permission"
-            class="inline-flex items-center gap-1 text-sm"
-          >
-            <UIcon name="i-tabler-circle-check" class="text-green-500" />
-            <span>{{ permission }}</span>
-          </div>
+          <Permission v-for="permission of selectedLicense.permissions" :key="permission" :permission="permission" />
         </div>
+        <UButton block variant="outline" @click="isOpen = !isOpen">
+          Detail {{ selectedLicense.label }}
+        </UButton>
       </aside>
 
       <div class="p-4 rounded license-wrapper w-full bg-gray-900 text-white overflow-auto">
@@ -97,6 +78,7 @@ watch([selectedLicense, name, year], () => {
       </pre>
       </div>
     </div>
+    <ModalLicenseDetail :id="selectedLicense.id" v-model:open="isOpen" />
   </div>
 </template>
 

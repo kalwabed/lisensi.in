@@ -1,0 +1,50 @@
+<script setup lang="ts">
+const props = defineProps<{
+  id: string
+}>()
+const isOpen = defineModel<boolean>('open')
+
+const selectedLicense = computed(() => {
+  return licenses.find(lic => lic.id === props.id)
+})
+</script>
+
+<template>
+  <UModal v-model="isOpen" :ui="{ width: 'md:max-w-xl' }">
+    <UCard :ui="{ ring: '', divide: 'divide-y divide-gray-100 dark:divide-gray-800' }">
+      <template #header>
+        <div class="flex items-center justify-between">
+          <h3 class="text-lg font-semibold leading-6 text-gray-900 dark:text-white">
+            {{ selectedLicense?.label }}
+          </h3>
+          <UButton
+            color="gray" variant="ghost" icon="i-heroicons-x-mark-20-solid" class="-my-1"
+            @click="isOpen = false"
+          />
+        </div>
+      </template>
+
+      <div class="flex flex-col gap-4">
+        <div class="space-y-4">
+          <b>Permissions</b>
+          <div v-for="perm of selectedLicense?.permissions" :key="perm" class="flex items-center gap-1">
+            <UIcon name="i-tabler-circle-check" class="text-green-500" />
+            <div>
+              <b>
+                {{ perm }}
+              </b>
+              <span>: Apakah real tidak mungkin
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <template #footer>
+        <UButton color="gray" variant="ghost" @click="isOpen = false">
+          Tutup
+        </UButton>
+      </template>
+    </UCard>
+  </UModal>
+</template>
