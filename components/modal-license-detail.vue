@@ -26,14 +26,27 @@ const selectedLicense = computed(() => {
 
       <div class="flex flex-col gap-4">
         <div class="space-y-4">
-          <b>Permissions</b>
-          <div v-for="perm of selectedLicense?.permissions" :key="perm" class="flex items-center gap-1">
+          <b>Izin</b>
+          <div v-for="perm of selectedLicense?.permissions" :key="perm.id" class="flex items-center gap-1">
             <UIcon name="i-tabler-circle-check" class="text-green-500" />
             <div>
               <b>
-                {{ perm }}
+                {{ perm.label }}
               </b>
-              <span>: Apakah real tidak mungkin
+              <span>: {{ perm.desc }}
+              </span>
+            </div>
+          </div>
+        </div>
+        <div class="space-y-4">
+          <b>Batasan</b>
+          <div v-for="limit of selectedLicense?.limitations" :key="limit.id" class="flex items-center gap-1">
+            <UIcon name="i-tabler-circle-x" class="text-red-500" />
+            <div>
+              <b>
+                {{ limit.label }}
+              </b>
+              <span>: {{ limit.desc }}
               </span>
             </div>
           </div>

@@ -65,7 +65,7 @@ watch([selectedLicense, name, year], () => {
           {{ selectedLicense.summary }}
         </small>
         <div class="flex flex-col gap-2">
-          <Permission v-for="permission of selectedLicense.permissions" :key="permission" :permission="permission" />
+          <Permission v-for="permission of selectedLicense.permissions" :key="permission.id" :permission="permission" />
         </div>
         <UButton block variant="outline" @click="isOpen = !isOpen">
           Detail {{ selectedLicense.label }}
