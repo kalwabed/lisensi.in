@@ -1,18 +1,23 @@
 export const limitation = {
   trademark: {
     id: 'trademark',
-    label: 'Merek dagang',
-    desc: 'terserah kata saya',
+    label: 'Merek Dagang',
+    desc: 'Merek dagang terdaftar dilindungi oleh hukum.',
   },
   liability: {
     id: 'liability',
-    label: 'Kewajiban',
-    desc: 'apakah real',
+    label: 'Tanggung Jawab',
+    desc: 'Pencipta tidak bertanggung jawab atas kerusakan.',
   },
   warranty: {
     id: 'warranty',
-    label: 'Jaminan',
-    desc: 'Gak ada kewajiban',
+    label: 'Garansi',
+    desc: 'Lisensi tidak menjamin software bebas dari cacat atau bug.',
+  },
+  patent: {
+    id: 'patent',
+    label: 'Hak Paten',
+    desc: 'Lisensi tidak memberikan hak paten.',
   },
 }
 
@@ -20,27 +25,70 @@ export const permission = {
   commercial: {
     id: 'commercial',
     label: 'Komersial',
-    desc: 'Boleh dikomersialkan',
+    desc: 'Izin untuk menggunakan software untuk tujuan komersial.',
   },
   modification: {
     id: 'modification',
     label: 'Modifikasi',
-    desc: 'Boleh dikemas ulang',
+    desc: 'Izin untuk mengubah dan membuat versi turunan software.',
   },
   distribution: {
     id: 'distribution',
     label: 'Distribusi',
-    desc: 'Boleh diantar kemana aja',
+    desc: 'Izin untuk menyebarkan software kepada orang lain.',
   },
   private: {
     id: 'private',
     label: 'Pribadi',
-    desc: 'Boleh pribadi, nggak harus umum',
+    desc: 'Izin untuk menggunakan untuk keperluan pribadi.',
   },
   patent: {
     id: 'patent',
     label: 'Paten',
-    desc: 'Boleh dibuat hak paten',
+    desc: 'Izin untuk menggunakan paten yang terkait dengan software.',
+  },
+}
+
+export const condition = {
+  copyright: {
+    id: 'copyright',
+    label: 'Pemberitahuan Lisensi',
+    desc: 'Sertakan pemberitahuan hak cipta dan lisensi dalam software.',
+  },
+  state: {
+    id: 'state',
+    label: 'Status',
+    desc: 'Beri tahu perubahan status software (alpha, beta, stabil).',
+  },
+  source: {
+    id: 'source',
+    label: 'Membuka Sumber',
+    desc: 'Ungkapkan kode sumber software.',
+  },
+  license: {
+    id: 'license',
+    label: 'Lisensi yang Sama',
+    desc: 'Distribusikan software dengan lisensi yang sama.',
+  },
+  copyrightSource: {
+    id: 'copyrightSource',
+    label: 'Pemberitahuan Lisensi untuk Sumber',
+    desc: 'Sertakan pemberitahuan hak cipta dan lisensi dalam kode sumber.',
+  },
+  networkUse: {
+    id: 'networkUse',
+    label: 'Penggunaan Jaringan adalah Distribusi',
+    desc: 'Penggunaan software di jaringan dianggap sebagai distribusi.',
+  },
+  licenseLibrary: {
+    id: 'licenseLibrary',
+    label: 'Lisensi yang Sama (Library)',
+    desc: 'Pustaka tertaut harus memiliki lisensi yang kompatibel.',
+  },
+  licenseFile: {
+    id: 'licenseFile',
+    label: 'Lisensi yang Sama (File)',
+    desc: 'File yang dimodifikasi harus memiliki lisensi yang sama.',
   },
 }
 
@@ -52,7 +100,7 @@ export const licenses: License[] = [
     summary: 'Lisensi ini cocok untuk proyek perangkat lunak open source yang ingin didistribusikan secara luas dan digunakan oleh banyak orang.',
     permissions: [permission.commercial, permission.modification, permission.distribution, permission.private],
     limitations: [limitation.liability, limitation.warranty],
-    conditions: ['commercial', 'modification', 'distribution', 'private', 'patent'],
+    conditions: [condition.copyright],
   },
   {
     name: 'Apache License, Version 2.0',
@@ -61,7 +109,7 @@ export const licenses: License[] = [
     summary: 'Lisensi Apache 2 permisif, memberikan hak luas untuk pengguna. Cocok untuk proyek open source yang ingin didistribusikan secara luas dan dikomersialkan.',
     permissions: [permission.commercial, permission.modification, permission.distribution, permission.private, permission.patent],
     limitations: [limitation.liability, limitation.warranty, limitation.trademark],
-    conditions: ['commercial', 'modification', 'distribution', 'private', 'patent'],
+    conditions: [condition.copyright],
   },
 ]
 
@@ -72,7 +120,7 @@ export interface License {
   summary: string
   permissions: LicenseMeta[]
   limitations: LicenseMeta[]
-  conditions: string[]
+  conditions: LicenseMeta[]
 }
 
 export interface LicenseMeta {

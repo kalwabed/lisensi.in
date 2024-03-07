@@ -24,31 +24,51 @@ const selectedLicense = computed(() => {
         </div>
       </template>
 
-      <div class="flex flex-col gap-4">
-        <div class="space-y-4">
+      <p class="mb-4">
+        {{ selectedLicense?.summary }}
+      </p>
+
+      <div class="flex flex-col gap-6">
+        <div class="space-y-3">
           <b>Izin</b>
-          <div v-for="perm of selectedLicense?.permissions" :key="perm.id" class="flex items-center gap-1">
-            <UIcon name="i-tabler-circle-check" class="text-green-500" />
-            <div>
-              <b>
+          <div v-for="perm of selectedLicense?.permissions" :key="perm.id">
+            <div class="flex items-center gap-1">
+              <UIcon name="i-tabler-circle-check" class="text-green-500" />
+              <span>
                 {{ perm.label }}
-              </b>
-              <span>: {{ perm.desc }}
               </span>
             </div>
+            <p>
+              {{ perm.desc }}
+            </p>
           </div>
         </div>
-        <div class="space-y-4">
+        <div class="space-y-3">
           <b>Batasan</b>
-          <div v-for="limit of selectedLicense?.limitations" :key="limit.id" class="flex items-center gap-1">
-            <UIcon name="i-tabler-circle-x" class="text-red-500" />
-            <div>
-              <b>
+          <div v-for="limit of selectedLicense?.limitations" :key="limit.id">
+            <div class="flex items-center gap-1">
+              <UIcon name="i-tabler-circle-x" class="text-red-500" />
+              <span>
                 {{ limit.label }}
-              </b>
-              <span>: {{ limit.desc }}
               </span>
             </div>
+            <p>
+              {{ limit.desc }}
+            </p>
+          </div>
+        </div>
+        <div class="space-y-3">
+          <b>Ketentuan</b>
+          <div v-for="condition of selectedLicense?.conditions" :key="condition.id">
+            <div class="flex items-center gap-1">
+              <UIcon name="i-tabler-alert-circle" class="text-blue-500" />
+              <span>
+                {{ condition.label }}
+              </span>
+            </div>
+            <p>
+              {{ condition.desc }}
+            </p>
           </div>
         </div>
       </div>
