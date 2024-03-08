@@ -22,10 +22,21 @@ function download() {
 }
 
 watch([selectedLicense, name, year], () => {
-  if (selectedLicense.value.id === 'mit')
-    licenseText.value = toMit(year.value, name.value)
-  else
-    licenseText.value = toApache2(year.value, name.value)
+  switch (selectedLicense.value.id) {
+    case 'mit':
+      licenseText.value = toMit(year.value, name.value)
+      break
+    case 'apache-2':
+      licenseText.value = toApache2(year.value, name.value)
+      break
+    case 'gpl-3':
+      licenseText.value = toGpl3()
+      break
+
+    default:
+      licenseText.value = toGpl3()
+      break
+  }
 }, { immediate: true })
 </script>
 
@@ -54,10 +65,10 @@ watch([selectedLicense, name, year], () => {
         <UFormGroup label="Lisensi">
           <USelectMenu v-model="selectedLicense" :options="licenses" placeholder="Pilih lisensi" />
         </UFormGroup>
-        <UFormGroup label="Nama pemegang">
+        <UFormGroup v-if="selectedLicense.withInput" label="Nama pemegang">
           <UInput v-model="name" placeholder="cth. Supratman Oye" />
         </UFormGroup>
-        <UFormGroup label="Tahun">
+        <UFormGroup v-if="selectedLicense.withInput" label="Tahun">
           <UInput v-model="year" />
         </UFormGroup>
         <small>
@@ -74,8 +85,8 @@ watch([selectedLicense, name, year], () => {
 
       <div class="p-4 rounded license-wrapper w-full bg-gray-900 text-white overflow-auto">
         <pre class="text-wrap">
-        {{ licenseText }}
-      </pre>
+          {{ licenseText }}
+        </pre>
       </div>
     </div>
     <ModalLicenseDetail :id="selectedLicense.id" v-model:open="isOpen" />

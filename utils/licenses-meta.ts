@@ -97,6 +97,7 @@ export const licenses: License[] = [
     label: 'MIT',
     name: 'The MIT License',
     id: 'mit',
+    withInput: true,
     summary: 'Lisensi ini cocok untuk proyek perangkat lunak open source yang ingin didistribusikan secara luas dan digunakan oleh banyak orang.',
     permissions: [permission.commercial, permission.modification, permission.distribution, permission.private],
     limitations: [limitation.liability, limitation.warranty],
@@ -105,11 +106,22 @@ export const licenses: License[] = [
   {
     name: 'Apache License, Version 2.0',
     label: 'Apache-2.0',
-    id: 'apache',
+    id: 'apache-2',
+    withInput: false,
     summary: 'Lisensi Apache 2 permisif, memberikan hak luas untuk pengguna. Cocok untuk proyek open source yang ingin didistribusikan secara luas dan dikomersialkan.',
     permissions: [permission.commercial, permission.modification, permission.distribution, permission.private, permission.patent],
     limitations: [limitation.liability, limitation.warranty, limitation.trademark],
-    conditions: [condition.copyright],
+    conditions: [condition.copyright, condition.state],
+  },
+  {
+    name: 'GNU General Public License version 3',
+    label: 'GPL-3.0-only',
+    id: 'gpl-3',
+    withInput: false,
+    summary: 'Lisensi Apache 2 permisif, memberikan hak luas untuk pengguna. Cocok untuk proyek open source yang ingin didistribusikan secara luas dan dikomersialkan.',
+    permissions: [permission.commercial, permission.modification, permission.distribution, permission.private, permission.patent],
+    limitations: [limitation.liability, limitation.warranty],
+    conditions: [condition.copyright, condition.state, condition.source, condition.license],
   },
 ]
 
@@ -118,6 +130,7 @@ export interface License {
   name: string
   id: string
   summary: string
+  withInput: boolean
   permissions: LicenseMeta[]
   limitations: LicenseMeta[]
   conditions: LicenseMeta[]
