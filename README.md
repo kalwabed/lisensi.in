@@ -1,11 +1,13 @@
-
 # lisensi.in
+
 A one-stop site for you to learn all about software licensing.
 
 ## Features (planned)
-WIP
+
+_Work in progress (WIP)_
 
 ## Setup
+
 Clone the repository
 
 Make sure to install the dependencies:
@@ -33,5 +35,3 @@ pnpm run build
 Look at the [Nuxt 3 documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
 
 > This project is still under development, but check back soon for updates.
-
-
